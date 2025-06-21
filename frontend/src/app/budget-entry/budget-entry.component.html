@@ -1,0 +1,169 @@
+<div class="expense-entry-container">
+  <!-- Main Content Card -->
+  <div class="expense-card">
+    <!-- Card Header -->
+    <div class="card-header">
+      <div class="header-content">
+        <div class="header-icon">💳</div>
+        <div class="header-text">
+          <h2>Add New Expense</h2>
+          <p>Record a new spending entry into your tracker.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Content -->
+    <form
+      [formGroup]="expenseForm"
+      (ngSubmit)="onSubmit()"
+      class="expense-form"
+    >
+      <!-- User ID Field -->
+      <div class="form-group">
+        <label for="userId" class="form-label">User Id</label>
+        <input
+          type="text"
+          id="userId"
+          formControlName="userId"
+          placeholder="User Id"
+          class="form-input"
+          [class.error]="hasError('userId', 'required')"
+        />
+        <div class="error-message" *ngIf="hasError('userId', 'required')">
+          {{ getErrorMessage("userId") }}
+        </div>
+      </div>
+
+      <!-- Category Field -->
+      <div class="form-group">
+        <label for="category" class="form-label">Category</label>
+        <div class="category-row">
+          <select
+            id="category"
+            formControlName="category"
+            class="form-select"
+            [class.error]="hasError('category', 'required')"
+          >
+            <option value="">Select a category</option>
+            <option value="groceries">Groceries</option>
+            <option value="rent">Rent</option>
+            <option value="utilities">Utilities</option>
+            <option value="transportation">Transportation</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="food">Food & Dining</option>
+            <option value="healthcare">Healthcare</option>
+            <option value="shopping">Shopping</option>
+          </select>
+          <button
+            type="button"
+            class="add-category-btn"
+            (click)="onAddNewCategory()"
+          >
+            Add new Category
+          </button>
+        </div>
+        <div class="error-message" *ngIf="hasError('category', 'required')">
+          {{ getErrorMessage("category") }}
+        </div>
+      </div>
+
+      <!-- Amount Field -->
+      <div class="form-group">
+        <label for="amount" class="form-label">Amount</label>
+        <input
+          type="number"
+          id="amount"
+          formControlName="amount"
+          placeholder="Rs."
+          class="form-input"
+          [class.error]="
+            hasError('amount', 'required') || hasError('amount', 'min')
+          "
+        />
+        <div
+          class="error-message"
+          *ngIf="hasError('amount', 'required') || hasError('amount', 'min')"
+        >
+          {{ getErrorMessage("amount") }}
+        </div>
+      </div>
+
+      <!-- Date Field -->
+      <div class="form-group">
+        <label for="date" class="form-label">Date</label>
+        <div class="date-input-container">
+          <input
+            type="date"
+            id="date"
+            formControlName="date"
+            class="form-input date-input"
+            [class.error]="hasError('date', 'required')"
+          />
+          <div class="date-icon">📅</div>
+        </div>
+        <div class="error-message" *ngIf="hasError('date', 'required')">
+          {{ getErrorMessage("date") }}
+        </div>
+      </div>
+
+      <!-- Description Field -->
+      <div class="form-group">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          placeholder="Description"
+          rows="4"
+          class="form-textarea"
+          [class.error]="hasError('description', 'required')"
+        >
+        </textarea>
+        <div class="error-message" *ngIf="hasError('description', 'required')">
+          {{ getErrorMessage("description") }}
+        </div>
+      </div>
+
+      <!-- Form Actions -->
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="expenseForm.invalid"
+        >
+          Submit
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="onClear()">
+          Clear
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Add New Category Modal (if needed) -->
+  <div
+    class="modal-overlay"
+    *ngIf="showAddCategoryModal"
+    (click)="closeAddCategoryModal()"
+  >
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Add New Category</h3>
+        <button class="close-btn" (click)="closeAddCategoryModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <input
+          type="text"
+          [(ngModel)]="newCategoryName"
+          placeholder="Enter category name"
+          class="form-input"
+        />
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" (click)="addNewCategory()">Add</button>
+        <button class="btn btn-secondary" (click)="closeAddCategoryModal()">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
