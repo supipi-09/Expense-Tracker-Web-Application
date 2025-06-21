@@ -1,3 +1,58 @@
-node_modules/
-.env
-dist/
+# ----------------------------------------
+# Angular (frontend)
+# ----------------------------------------
+**/node_modules/
+**/dist/
+**/.angular/
+**/.vscode/
+**/.env
+**/package-lock.json
+
+# Angular build output
+**/out-tsc/
+**/coverage/
+**/.sass-cache/
+
+# Environment files
+**/src/environments/environment*.ts
+
+# IDE files
+**/.idea/
+**/.DS_Store
+
+# ----------------------------------------
+# .NET (backend)
+# ----------------------------------------
+
+# Build results
+**/bin/
+**/obj/
+
+# User-specific files
+**/*.user
+**/*.rsuser
+**/*.suo
+**/*.userosscache
+**/*.sln.docstates
+
+# ASP.NET Scaffolding
+**/ScaffoldingReadMe.txt
+
+# Logs
+**/logs/
+**/*.log
+
+# Secrets
+**/appsettings.Development.json
+**/appsettings.Local.json
+**/secrets.json
+
+# Visual Studio Code
+**/.vscode/
+
+# Rider
+**/.idea/
+
+# Others
+*.swp
+*.tmp
