@@ -1,13 +1,46 @@
 <div class="expense-entry-container">
   <!-- Main Content Card -->
-  <div class="expense-card">
+  <div class="main-content">
     <!-- Card Header -->
-    <div class="card-header">
-      <div class="header-content">
-        <div class="header-icon">💳</div>
-        <div class="header-text">
-          <h2>Add New Expense</h2>
-          <p>Record a new spending entry into your tracker.</p>
+    <div class="header">
+      <div class="header-left">
+        <h2>Add New Expense</h2>
+        <p class="header-subtitle">
+          Record a new spending entry into your tracker.
+        </p>
+      </div>
+      <div class="header-right">
+        <div class="search-box">
+          <svg
+            class="search-icon"
+            width="16"
+            height="16"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Search..."
+            (input)="onSearch($event)"
+          />
+        </div>
+        <div class="user-profile">
+          <div class="user-avatar">{{ userInitials }}</div>
+          <div class="user-name">{{ userName }}</div>
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
         </div>
       </div>
     </div>
@@ -139,7 +172,7 @@
     </form>
   </div>
 
-  <!-- Add New Category Modal (if needed) -->
+  <!-- Add New Category Modal -->
   <div
     class="modal-overlay"
     *ngIf="showAddCategoryModal"

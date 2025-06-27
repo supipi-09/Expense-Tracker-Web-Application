@@ -1,24 +1,46 @@
-// src/app/app.routes.ts
 import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { LayoutComponent } from './layout/layout.component'; // If using a layout wrapper
 import { AuthGuard } from './auth/auth.guard';
-import { BudgetEntryComponent } from './budget-entry/budget-entry.component';
-import { BudgetHistoryComponent } from './budget-history/budget-history.component';
-import { BudgetFormComponent } from './budget-form/budget-form.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+
   {
-    path: 'dashboard',
-    component: DashboardComponent,
+    path: '',
+    component: LayoutComponent,
     canActivate: [AuthGuard],
-    data: { authRequired: true },
     children: [
-      { path: 'budget-entry', component: BudgetEntryComponent },
-      { path: 'budget-history', component: BudgetHistoryComponent },
-      { path: 'budget-form', component: BudgetFormComponent },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./dashboard/dashboard.component').then(
+            (m) => m.DashboardComponent
+          ),
+      },
+      {
+        path: 'budget-entry',
+        loadComponent: () =>
+          import('./budget-entry/budget-entry.component').then(
+            (m) => m.BudgetEntryComponent
+          ),
+      },
+      {
+        path: 'budget-form',
+        loadComponent: () =>
+          import('./budget-form/budget-form.component').then(
+            (m) => m.BudgetFormComponent
+          ),
+      },
+      {
+        path: 'budget-history',
+        loadComponent: () =>
+          import('./budget-history/budget-history.component').then(
+            (m) => m.BudgetHistoryComponent
+          ),
+      },
     ],
   },
 ];

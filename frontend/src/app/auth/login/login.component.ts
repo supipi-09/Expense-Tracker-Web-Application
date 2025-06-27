@@ -28,16 +28,20 @@ export class LoginComponent {
 
     this.isLoading = true;
 
-    this.authService
-      .login(this.email, this.password)
-      .subscribe((isAuthenticated) => {
+    this.authService.login(this.email, this.password).subscribe({
+      next: (isAuthenticated) => {
         this.isLoading = false;
         if (isAuthenticated) {
           this.router.navigate(['/dashboard']);
         } else {
           this.errorMessage = 'Invalid email or password';
         }
-      });
+      },
+      error: () => {
+        this.isLoading = false;
+        this.errorMessage = 'An unexpected error occurred. Please try again.';
+      },
+    });
   }
 
   handleForgotPassword(event: Event): void {

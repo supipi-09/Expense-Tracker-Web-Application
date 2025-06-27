@@ -26,6 +26,15 @@ interface Category {
   styleUrls: ['./budget-entry.component.css'],
 })
 export class BudgetEntryComponent implements OnInit {
+  // User properties (added to fix the error)
+  userInitials: string = 'JD';
+  userName: string = 'John Doe';
+
+  // Search and filter properties
+  searchTerm: string = '';
+  fromDate: string = '';
+  toDate: string = '';
+
   expenseForm: FormGroup;
   showAddCategoryModal = false;
   newCategoryName = '';
@@ -69,8 +78,7 @@ export class BudgetEntryComponent implements OnInit {
     });
   }
 
-  // Add this missing method
-  public hasError(controlName: string, errorType: string): boolean {
+  hasError(controlName: string, errorType: string): boolean {
     const control = this.expenseForm.get(controlName);
     return control
       ? control.hasError(errorType) && (control.dirty || control.touched)
@@ -136,5 +144,12 @@ export class BudgetEntryComponent implements OnInit {
       });
       this.closeAddCategoryModal();
     }
+  }
+
+  // Add this method to handle search functionality
+  onSearch(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.searchTerm = input.value.toLowerCase();
+    // Add your search filtering logic here if needed
   }
 }

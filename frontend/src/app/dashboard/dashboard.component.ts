@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet } from '@angular/router';
-import { SidebarComponent } from '../sidebar/sidebar.component';
 import { AuthService } from '../auth/auth.service';
 
 interface BudgetItem {
@@ -14,12 +13,12 @@ interface BudgetItem {
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, RouterOutlet, SidebarComponent],
+  imports: [CommonModule, RouterModule, RouterOutlet],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  showSidebar: boolean = true; // Add this property
+  showSidebar: boolean = true;
   currentMonth: string = new Date().toLocaleString('default', {
     month: 'long',
     year: 'numeric',
@@ -35,7 +34,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.loadUserData();
     this.loadBudgetData();
-    // Set sidebar visibility based on auth status
     this.showSidebar = this.authService.isLoggedIn();
   }
 
@@ -47,7 +45,6 @@ export class DashboardComponent implements OnInit {
   }
 
   private loadBudgetData(): void {
-    // Mock data - replace with actual API call
     this.budgetData = [
       { category: 'Food', budgeted: 15000, spent: 12500, remaining: 2500 },
       { category: 'Transport', budgeted: 8000, spent: 7500, remaining: 500 },
