@@ -70,7 +70,7 @@ public class DatabaseHelper
             }
 
             var result = command.ExecuteScalar();
-            return result ?? throw new Exception("Database operation returned null");
+            return result;
         }
     }
 }
